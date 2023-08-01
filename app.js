@@ -13,11 +13,12 @@ const activity = (data) => {
     state: data.state,
     details: data.details,
     startTimestamp: new Date().getTime(),
-    largeImageKey: '1brave',
-    largeImageText: 'Brave Browser',
+    largeImageKey: 'bb',
+    largeImageText: 'Drakonz Brave Browser',
     buttons: [{ label: 'Visit the site', url: data.url }],
     instance: true,
   };
+  console.log(presenceData);
   return presenceData;
 };
 
@@ -36,4 +37,9 @@ rpc.on('ready', () => {
 
 app.listen(PORT, () => console.log(`Brave RPC is running on PORT: ${PORT}`));
 
-rpc.login({ clientId: '612158030473068545' }).catch(console.error);
+try {
+  rpc.login({ clientId: '612158030473068545' });
+} catch (error) {
+  console.error(error);
+  console.log('your discord client is not running');
+}
