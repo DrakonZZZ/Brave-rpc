@@ -13,12 +13,15 @@ const activity = (data) => {
     state: data.state,
     details: data.details,
     startTimestamp: new Date().getTime(),
-    largeImageKey: 'bb',
+    largeImageKey:
+      data.largeIcon && /\.(ico|svg)$/i.test(data.largeIcon)
+        ? 'bb'
+        : data.largeIcon || 'bb',
     largeImageText: 'Drakonz Brave Browser',
     buttons: [{ label: 'Visit the site', url: data.url }],
     instance: true,
   };
-  console.log(presenceData);
+  console.log(data);
   return presenceData;
 };
 

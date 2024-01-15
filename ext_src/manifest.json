@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "Brave Browser RPC",
+  "version": "1.0.1",
+  "description": "Discord Rpc for Brave browser",
+
+  "background": {
+    "scripts": ["js/background.js" , "js/jquery-3.6.4.min.js"],
+    "persistent": true
+  },
+
+  "page_action": {
+    "default_title": "Brave",
+    "default_icon": {
+      "16": "./icons/brave_icon.png",
+      "32": "./icons/brave_icon.png"
+    }
+  },
+
+  "icons": {
+    "16": "./icons/brave_icon.png",
+    "32": "./icons/brave_icon.png"
+  },
+
+  "permissions": [
+    "tabs",
+    "http://localhost/*"
+  ],
+  "author": "https://github.com/DrakonZZZ"
+}
