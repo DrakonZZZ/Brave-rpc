@@ -5,7 +5,7 @@
   "description": "Discord Rpc for Brave browser",
 
   "background": {
-    "scripts": ["js/background.js" , "js/jquery-3.6.4.min.js"],
+    "scripts": ["js/background.js", "js/jquery-3.6.4.min.js"],
     "persistent": true
   },
 
@@ -22,9 +22,6 @@
     "32": "./icons/brave_icon.png"
   },
 
-  "permissions": [
-    "tabs",
-    "http://localhost/*"
-  ],
+  "permissions": ["tabs", "http://localhost/*", "<all_urls>"],
   "author": "https://github.com/DrakonZZZ"
 }

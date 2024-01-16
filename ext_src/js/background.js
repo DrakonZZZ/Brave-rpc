@@ -1,28 +1,50 @@
+//getting data from head element
+let extractAppleTouchIcon = (headContent) => {
+  let tempDiv = document.createElement('div');
+  tempDiv.innerHTML = headContent;
+  let appleTouchIconElement = tempDiv.querySelector(
+    'link[rel="apple-touch-icon"]'
+  );
+  let appleTouchIconLink = appleTouchIconElement
+    ? appleTouchIconElement.getAttribute('href')
+    : null;
+  return appleTouchIconLink;
+};
+
 let updatePresence = (tab) => {
   if (tab) {
     let url = new URL(tab.url);
     console.log(url);
 
-    chrome.tabs.get(tab.id, (tabInfo) => {
-      let faviconUrl = tabInfo.favIconUrl;
+    chrome.tabs.executeScript(
+      tab.id,
+      { code: 'document.head.outerHTML' },
+      (result) => {
+        let headContent = result[0] || '';
+        let largeIconContent = extractAppleTouchIcon(headContent);
 
-      var data = {
-        action: 'set',
-        url: tab.url,
-        details: url.hostname,
-        state: tab.title,
-        smallText: tab.url,
-        largeText: tab.title,
-        largeIcon: faviconUrl,
-      };
+        console.log(largeIconContent);
+        chrome.tabs.get(tab.id, (tabInfo) => {
+          let largeIcon = tabInfo.favIconUrl;
 
-      sendData(data);
-    });
+          var data = {
+            action: 'set',
+            url: tab.url,
+            details: url.hostname,
+            state: tab.title,
+            smallText: tab.url,
+            largeText: tab.title,
+            largeIcon,
+            largeIconContent,
+          };
+          sendData(data);
+        });
+      }
+    );
   } else {
     var data = {
       action: 'clear',
     };
-
     sendData(data);
   }
 };

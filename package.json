@@ -11,7 +11,9 @@
   "license": "Unlicense",
   "dependencies": {
     "discord-rpc": "^4.0.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "icojs": "^0.19.3",
+    "sharp": "^0.33.2"
   },
   "repository": {
     "type": "git",
