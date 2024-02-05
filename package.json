@@ -1,14 +1,14 @@
 {
   "name": "discord-brave-presence",
   "version": "2.0.0",
-  "description": "Uses your browser for your Discord presence",
+  "description": "Brave Browser Discord RPC",
   "main": "app.js",
   "type": "module",
   "scripts": {
     "start": "node app.js"
   },
   "author": "Drakonz",
-  "license": "Unlicense",
+  "license": "MIT",
   "dependencies": {
     "discord-rpc": "^4.0.1",
     "express": "^4.18.2",
@@ -17,9 +17,15 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/DrakonZZZ/Brave-rpc.git"
   },
   "keywords": [
-    "discord"
-  ]
+    "discord",
+    "Brave Browser",
+    "DiscordRPC",
+    "Electron"
+  ],
+  "bugs": {
+    "url": "https://github.com/DrakonZZZ/Brave-rpc/issues"
+  }
 }

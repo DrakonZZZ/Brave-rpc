@@ -17,7 +17,7 @@ const activity = (data) => {
       ? data.largeIconContent.startsWith('http')
         ? data.largeIconContent
         : 'https://' + data.details + data.largeIconContent
-      : 'bb',
+      : data.largeIcon,
     largeImageText: 'Drakonz Brave Browser',
     buttons: [{ label: 'Visit the site', url: data.url }],
     instance: true,
