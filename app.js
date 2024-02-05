@@ -12,10 +12,8 @@ let prevData = {};
 
 const activity = (data) => {
   let largeImageKey = data.largeIcon;
-  if (
-    (largeImageKey && largeImageKey.endsWith('.ico')) ||
-    largeImageKey === ''
-  ) {
+  if (largeImageKey.endsWith('.ico') || largeImageKey === '') {
+    console.log(largeImageKey.endsWith('.ico'));
     largeImageKey = '1brave';
   }
 

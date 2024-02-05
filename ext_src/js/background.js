@@ -1,18 +1,25 @@
 // Initialize rpcEnable with true
 let rpcEnable = true;
 
+// Listen for messages from the popup to update rpcEnable
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  rpcEnable = message.rpcEnable;
+  if (message.action === 'updateRpcEnable') {
+    rpcEnable = message.rpcEnable;
+    console.log(rpcEnable);
+  }
 });
 
 // Function to update the presence based on the tab information
 let updatePresence = () => {
-  chrome.windows.getLastFocused({ populate: true }, (window) => {
-    if (window.focused && window.tabs) {
-      for (let tab of window.tabs) {
-        if (tab.highlighted) {
-          let url = new URL(tab.url);
-
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (tabs && tabs.length > 0) {
+      let tab = tabs[0];
+      let url = new URL(tab.url);
+      // Send message to content script to extract apple-touch-icon
+      chrome.tabs.sendMessage(
+        tab.id,
+        { action: 'extractAppleTouchIcon' },
+        (response) => {
           let data = {
             action: 'set',
             rpcEnable,
@@ -22,12 +29,13 @@ let updatePresence = () => {
             smallText: tab.url,
             largeText: tab.title,
             largeIcon: tab.favIconUrl,
+            largeIconContent: response?.appleTouchIcon,
           };
 
+          console.log(data);
           sendData(data);
-          break;
         }
-      }
+      );
     }
   });
 };
@@ -53,7 +61,6 @@ let sendData = (data) => {
 };
 
 // Interval to update presence periodically
-let lastCheckedTabId;
 setInterval(() => {
   updatePresence();
 }, 2000);

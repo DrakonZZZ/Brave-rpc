@@ -12,6 +12,13 @@
     "service_worker": "js/background.js"
   },
 
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/content.js"]
+    }
+  ],
+
   "action": {
     "default_popup": "popup.html",
     "default_title": "Brave",
@@ -23,7 +30,8 @@
 
   "icons": {
     "16": "./icons/brave_icon.png",
-    "32": "./icons/brave_icon.png"
+    "32": "./icons/brave_icon.png",
+    "128": "./icons/brave_icon_128x128.png"
   },
 
   "author": "https://github.com/DrakonZZZ"
