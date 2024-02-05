@@ -10,7 +10,10 @@ const rpc = new Rpc.Client({ transport: 'ipc' });
 
 const activity = (data) => {
   let largeImageKey = data.largeIcon;
-  if (largeImageKey && largeImageKey.endsWith('.ico')) {
+  if (
+    (largeImageKey && largeImageKey.endsWith('.ico')) ||
+    largeImageKey === ''
+  ) {
     largeImageKey = '1brave';
   }
 
@@ -23,19 +26,24 @@ const activity = (data) => {
         ? data.largeIconContent
         : 'https://' + data.details + data.largeIconContent
       : largeImageKey,
-    largeImageText: data.details,
+    largeImageText: 'Brave Browser',
     buttons: [{ label: 'Visit the site', url: data.url }],
     instance: true,
   };
-  console.log(presenceData);
+  console.log(presenceData.rpcEnable);
   return presenceData;
 };
 
 rpc.on('ready', () => {
   app.post('/', (req, res) => {
+    console.log(req.body);
     let data = req.body;
     if (data.action === 'set') {
-      rpc.setActivity(activity(data));
+      if (data.rpcEnable === true) {
+        rpc.setActivity(activity(data));
+      } else {
+        rpc.clearActivity();
+      }
     } else if (data.action === 'clear') {
       rpc.clearActivity();
       throw new Error('not a valid link');
