@@ -9,6 +9,11 @@ app.use(express.json());
 const rpc = new Rpc.Client({ transport: 'ipc' });
 
 const activity = (data) => {
+  let largeImageKey = data.largeIcon;
+  if (largeImageKey && largeImageKey.endsWith('.ico')) {
+    largeImageKey = '1brave';
+  }
+
   const presenceData = {
     state: data.state,
     details: data.details,
@@ -17,8 +22,8 @@ const activity = (data) => {
       ? data.largeIconContent.startsWith('http')
         ? data.largeIconContent
         : 'https://' + data.details + data.largeIconContent
-      : data.largeIcon,
-    largeImageText: 'Drakonz Brave Browser',
+      : largeImageKey,
+    largeImageText: data.details,
     buttons: [{ label: 'Visit the site', url: data.url }],
     instance: true,
   };
