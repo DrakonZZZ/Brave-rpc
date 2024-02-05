@@ -1,5 +1,6 @@
 import express from 'express';
 import Rpc from 'discord-rpc';
+import logBoxedObject from './utils/logBox.js';
 
 const app = express();
 const PORT = 3000;
@@ -7,6 +8,7 @@ const PORT = 3000;
 app.use(express.json());
 
 const rpc = new Rpc.Client({ transport: 'ipc' });
+let prevData = {};
 
 const activity = (data) => {
   let largeImageKey = data.largeIcon;
@@ -30,23 +32,33 @@ const activity = (data) => {
     buttons: [{ label: 'Visit the site', url: data.url }],
     instance: true,
   };
-  console.log(presenceData.rpcEnable);
+  logBoxedObject(presenceData);
   return presenceData;
+};
+
+const stateChange = (obj) => {
+  if (Object.keys(obj).length !== Object.keys(prevData).length) return true;
+
+  for (let key in prevData) {
+    if (!obj.hasOwnProperty(key) || prevData[key] !== obj[key]) return true;
+  }
+
+  return false;
 };
 
 rpc.on('ready', () => {
   app.post('/', (req, res) => {
-    console.log(req.body);
-    let data = req.body;
-    if (data.action === 'set') {
-      if (data.rpcEnable === true) {
+    const data = req.body;
+    if (data.action === 'set' && data.rpcEnable) {
+      if (stateChange(data)) {
+        prevData = data;
         rpc.setActivity(activity(data));
-      } else {
-        rpc.clearActivity();
       }
     } else if (data.action === 'clear') {
       rpc.clearActivity();
       throw new Error('not a valid link');
+    } else {
+      rpc.clearActivity();
     }
     res.sendStatus(200);
   });
