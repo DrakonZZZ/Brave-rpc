@@ -31,7 +31,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #5c5c5c;
+  background-color: #707070;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -43,7 +43,7 @@ body {
   width: 14px;
   left: 1px;
   bottom: 1px;
-  color: #5c5c5c;
+  background-color: #3b3a3a;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
