@@ -1,6 +1,6 @@
-## Overview
-![](https://github.com/DrakonZZZ/brave-rpc/blob/1e2e6200d44335d78ff252f1eee83c3c089679bd/Active%20RPC%20image.jpg)
+![](https://raw.githubusercontent.com/DrakonZZZ/Brave-rpc/main/images/icon.png)
 
+# Introduction
 Discord-Chrome-Presence allows you to set your Discord Rich Presence to whatever you're looking at it in Brave. An additional brave extension is included in order to rely site information.
 
 ## Requirements
@@ -10,9 +10,10 @@ Discord-Chrome-Presence allows you to set your Discord Rich Presence to whatever
 - [brave](https://brave.com) or [Chromium](https://www.chromium.org/getting-involved/download-chromium)
 - [7zip](https://www.7-zip.org)
 
-## Installation
 
-Install the brave extension, included in the extension directory. Then, start the server by executing shell script 
+## Installation
+Install the brave extension, included in the extension directory. Then, start the server by executing shell script or using following commands 
+
 
 ## Usage
 ```javascript
@@ -20,8 +21,12 @@ git clone https://github.com/DrakonZZZ/brave-rp
 
 or download the content in zip format.
 
+npm i
+
 run ./start.sh in your terminal or run npm start
 ```
 
+## Screeenshot 
+ ![](https://raw.githubusercontent.com/DrakonZZZ/Brave-rpc/main/images/active.png)
 
-Discord will need to be open and the Chrome extension needs to be added (see Installation).
+Discord must be open before the brave/chrome extension can be execute(see the installation)
