@@ -9,11 +9,20 @@
 </head>
 
 <body>
-    <div id="state">Enabled</div>
-    <label class="switch">
-        <input type="checkbox" id="rpcToggle">
-        <span class="slider round"></span>
-    </label>
+    <div class="container">
+        <div class="button-rpc">
+            <div id="state">Enabled</div>
+            <label class="switch">
+                <input type="checkbox" id="rpcToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <label class="image-input">
+            <input type="text" id="image-rpc" placeholder="Image source here...">
+            <button class="image-btn">Add</button>
+        </label>
+    </div>
     <script src="popup.js"></script>
 </body>
 

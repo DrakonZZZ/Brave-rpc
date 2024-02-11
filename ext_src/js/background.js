@@ -9,13 +9,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'updateLargeIconContent') {
+    largeIconContent = message.largeIconContent;
+  }
+});
+
 // Function to update the presence based on the tab information
 let updatePresence = () => {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     if (tabs && tabs.length > 0) {
       let tab = tabs[0];
       let url = new URL(tab.url);
-      // Send message to content script to extract apple-touch-icon
       chrome.tabs.sendMessage(
         tab.id,
         { action: 'extractAppleTouchIcon' },
@@ -29,10 +34,9 @@ let updatePresence = () => {
             smallText: tab.url,
             largeText: tab.title,
             largeIcon: tab.favIconUrl,
-            largeIconContent: response?.appleTouchIcon,
+            largeIconContent: largeIconContent || response?.appleTouchIcon,
           };
 
-          console.log(data);
           sendData(data);
         }
       );
