@@ -1,18 +1,46 @@
-// Initialize rpcEnable with true
 let rpcEnable = true;
+let largeIconContentValue = null;
 
 // Listen for messages from the popup to update rpcEnable
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'updateRpcEnable') {
     rpcEnable = message.rpcEnable;
-    console.log(rpcEnable);
+  }
+
+  if (message.action === 'updateLargeIconContent') {
+    largeIconContentValue = message.largeIconContent;
+    console.log(largeIconContentValue);
   }
 });
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'updateLargeIconContent') {
-    largeIconContent = message.largeIconContent;
+// Listen for tab updates to change largeIconContentValue
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url) {
+    const url = changeInfo.url;
+    // Retrieve largeIconContentValue associated with the URL from storage
+    chrome.storage.sync.get(url, (data) => {
+      if (data[url]) {
+        largeIconContentValue = data[url];
+      } else {
+        largeIconContentValue = null;
+      }
+    });
   }
+});
+
+// Listen for tab changes to reset largeIconContentValue
+chrome.tabs.onActivated.addListener((activeInfo) => {
+  chrome.tabs.get(activeInfo.tabId, (tab) => {
+    const url = tab.url;
+    // Retrieve largeIconContentValue associated with the URL from storage
+    chrome.storage.sync.get(url, (data) => {
+      if (data[url]) {
+        largeIconContentValue = data[url];
+      } else {
+        largeIconContentValue = null;
+      }
+    });
+  });
 });
 
 // Function to update the presence based on the tab information
@@ -21,10 +49,12 @@ let updatePresence = () => {
     if (tabs && tabs.length > 0) {
       let tab = tabs[0];
       let url = new URL(tab.url);
+      // Send message to content script to extract apple-touch-icon
       chrome.tabs.sendMessage(
         tab.id,
         { action: 'extractAppleTouchIcon' },
         (response) => {
+          console.log(response);
           let data = {
             action: 'set',
             rpcEnable,
@@ -34,9 +64,10 @@ let updatePresence = () => {
             smallText: tab.url,
             largeText: tab.title,
             largeIcon: tab.favIconUrl,
-            largeIconContent: largeIconContent || response?.appleTouchIcon,
+            largeIconContent: largeIconContentValue || response?.appleTouchIcon,
           };
 
+          console.log(data);
           sendData(data);
         }
       );

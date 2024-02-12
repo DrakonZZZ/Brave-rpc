@@ -94,4 +94,9 @@ input:checked + .slider:before {
 .image-btn {
   border-radius: 5px;
   margin-top: 2px;
+  cursor: pointer;
+}
+
+.image-btn:hover {
+  background-color: rgb(189, 189, 189);
 }
