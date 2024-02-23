@@ -53,7 +53,8 @@ body {
     0 0 100px rgba(146, 251, 139, 0.346);
   color: rgb(146, 251, 139);
   border: px solid rgba(146, 251, 139, 0.109);
-  transition: box-shadow 0.3s ease-in-out;
+  transform: scale(0.95);
+  transition: all 0.3s ease-in-out;
 }
 
 .off {
@@ -61,6 +62,7 @@ body {
   box-shadow: 3px 3px 5px rgba(32, 32, 32, 0.15),
     -3px -3px 5px rgba(21, 21, 21, 0.7);
   border: 1px solid rgba(0, 0, 0, 0);
+  transform: scale(1);
 }
 
 .extension-text {
