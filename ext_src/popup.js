@@ -49,15 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to update the button state
   function updateButtonState(enabled) {
     if (enabled) {
-      rpcButton.textContent = 'ON';
       rpcButton.classList.remove('off');
       rpcButton.classList.add('on');
       stateText.innerText = 'Enabled';
+      imageInput.disabled = false;
+      addButton.disabled = false;
     } else {
-      rpcButton.textContent = 'OFF';
       rpcButton.classList.remove('on');
       rpcButton.classList.add('off');
       stateText.innerText = 'Disabled';
+      imageInput.disabled = true;
+      addButton.disabled = true;
     }
   }
 });

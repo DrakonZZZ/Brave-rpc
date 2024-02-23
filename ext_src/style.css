@@ -1,13 +1,27 @@
+* {
+  margin: none;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   width: 250px;
   height: 250px;
-  background-color: #1d1d1d;
+  background: rgb(18, 18, 18);
+  background: linear-gradient(
+    0deg,
+    rgb(20, 20, 20) 0%,
+    rgba(29, 29, 29, 1) 100%
+  );
+  padding: 1rem 0.5rem;
 }
 
 .container {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
 
 .button-rpc {
@@ -17,49 +31,83 @@ body {
   margin-bottom: 20px;
 }
 
+.fa-solid {
+  font-size: 2rem;
+}
+
 .neumorphic-button {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 1px solid rgb(64, 64, 64);
-  background: linear-gradient(145deg, #1d1d1d, rgb(26, 26, 26));
-  box-shadow: inset 5px 5px 10px #111, inset -5px -5px 10px #333;
+  border: 1px solid rgba(46, 46, 46, 0.05);
+  background: linear-gradient(145deg, #1d1d1d, #2b2b2b);
+  box-shadow: 7px 7px 14px #0f0f0f, -7px -7px 14px #373737;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   font-size: 24px;
   color: #6b6e72;
 }
 
-.neumorphic-button:hover {
-  box-shadow: inset 3px 3px 5px #111, inset -3px -3px 5px #333;
+.on {
+  box-shadow: inset 4px 4px 8px #191919, inset -2px -2px 4px #373737,
+    0 0 100px rgba(146, 251, 139, 0.346);
+  color: rgb(146, 251, 139);
+  border: px solid rgba(146, 251, 139, 0.109);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
-#state {
+.off {
+  color: rgba(107, 110, 114, 0.35);
+  box-shadow: 3px 3px 5px rgba(32, 32, 32, 0.15),
+    -3px -3px 5px rgba(21, 21, 21, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.extension-text {
   text-align: center;
   margin-top: 10px;
+  font-size: 1rem;
+  color: rgba(167, 167, 167, 0.35);
 }
 
-.image-input {
+.rpc-image-input {
+  width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #image-rpc {
-  margin-right: 10px;
-  padding: 5px;
+  width: 100%;
+  background-color: #1d1d1d;
+  color: rgb(137, 137, 137);
+  padding: 6px;
+  border: 1px solid #2b2b2b;
+  outline: none;
   font-size: 16px;
+  margin-bottom: 6px;
+}
+
+#image-rpc::placeholder {
+  color: rgb(60, 58, 58);
 }
 
 #image-btn {
   padding: 5px 10px;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
-  background-color: #111;
+  border-radius: 4px;
+  background-color: #222222;
+  padding: 0.5rem;
   color: white;
   cursor: pointer;
 }
 
-#image-btn:hover {
+#image-btn .off {
+  background-color: #6f6e6e !important;
+}
+
+#image-btn:not([disabled]):hover {
   background-color: #333;
+  transition: background-color 0.2s ease-in-out;
 }
