@@ -5,6 +5,7 @@ let largeIconContentValue = null;
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'updateRpcEnable') {
     rpcEnable = message.rpcEnable;
+    console.log(rpcEnable);
   }
 
   if (message.action === 'updateLargeIconContent') {

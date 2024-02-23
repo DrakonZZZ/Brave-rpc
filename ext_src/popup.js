@@ -1,23 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
   let stateText = document.getElementById('state');
-  const rpcTgl = document.getElementById('rpcToggle');
+  const rpcButton = document.getElementById('rpcButton');
   const imageInput = document.getElementById('image-rpc');
   const addButton = document.getElementById('image-btn');
 
-  // Retrieve the stored rpcDisabled value from storage and set the toggle accordingly
-  chrome.storage.sync.get('rpcDisabled', (data) => {
-    rpcTgl.checked = !data.rpcDisabled;
+  // Retrieve the stored rpcEnable value from storage and set the button state accordingly
+  chrome.storage.sync.get('rpcEnable', (data) => {
+    const rpcEnabled = data.rpcEnable !== undefined ? data.rpcEnable : true;
+    updateButtonState(rpcEnabled);
   });
 
-  // Listen for changes in the toggle button state
-  rpcTgl.addEventListener('change', () => {
-    const rpcEnable = rpcTgl.checked;
-    stateText.innerText = rpcEnable ? 'Enabled' : 'Disabled';
-    chrome.storage.sync.set({ rpcDisabled: !rpcEnable });
-    chrome.runtime.sendMessage({ action: 'updateRpcEnable', rpcEnable });
+  // Toggle button state when clicked
+  rpcButton.addEventListener('click', () => {
+    chrome.storage.sync.get('rpcEnable', (data) => {
+      const rpcEnabled = data.rpcEnable !== undefined ? data.rpcEnable : true;
+      console.log(rpcEnabled);
+      updateButtonState(!rpcEnabled);
+      chrome.storage.sync.set({ rpcEnable: !rpcEnabled });
+      chrome.runtime.sendMessage({
+        action: 'updateRpcEnable',
+        rpcEnable: !rpcEnabled,
+      });
+    });
   });
 
-  // Listen for click event on the button
+  // Listen for click event on the "Add" button
   addButton.addEventListener('click', () => {
     const inputValue = imageInput.value.trim();
     if (inputValue) {
@@ -38,4 +45,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // Function to update the button state
+  function updateButtonState(enabled) {
+    if (enabled) {
+      rpcButton.textContent = 'ON';
+      rpcButton.classList.remove('off');
+      rpcButton.classList.add('on');
+      stateText.innerText = 'Enabled';
+    } else {
+      rpcButton.textContent = 'OFF';
+      rpcButton.classList.remove('on');
+      rpcButton.classList.add('off');
+      stateText.innerText = 'Disabled';
+    }
+  }
 });
