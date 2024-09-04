@@ -1,27 +1,30 @@
 * {
-  margin: none;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
   width: 250px;
-  height: 250px;
+  height: 260px;
   background: rgb(18, 18, 18);
   background: linear-gradient(
     0deg,
     rgb(20, 20, 20) 0%,
     rgba(29, 29, 29, 1) 100%
   );
-  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  padding: 1rem 0.5rem;
+  margin: 10px;
 }
 
 .button-rpc {
@@ -112,4 +115,31 @@ body {
 #image-btn:not([disabled]):hover {
   background-color: #333;
   transition: background-color 0.2s ease-in-out;
+}
+
+.server-status {
+  background-color: #1a1a1a;
+  padding: 8px 10px;
+  width: auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: end;
+  p {
+    color: rgb(122, 122, 122);
+    padding: 0 10px;
+  }
+}
+
+.glowing-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  padding: 1px 4px;
+  background-color: #f65b53; /* Red when server is not detected */
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+
+.server-detected {
+  background-color: #00ff00; /* Green when server is detected */
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
 }

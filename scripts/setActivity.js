@@ -1,5 +1,5 @@
 import { prevData } from './rpcConnection.js'
-import logBoxedObject from './utils/logBox.js'
+import { logBoxedObject } from './utils/logBox.js'
 
 const activity = (data) => {
   let largeImageKey = data.largeIcon
