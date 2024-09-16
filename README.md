@@ -26,6 +26,10 @@ npm i
 run ./start.sh in your terminal or run npm start
 ```
 
+## Feature
+Adding custom image option to the extension
+add extension enable/disable button
+
 ## Screeenshot 
  ![](https://raw.githubusercontent.com/DrakonZZZ/Brave-rpc/main/images/active.png)
 
